@@ -13,13 +13,21 @@ const gameOver = document.getElementById('floater');
 let intervalID;
 let trailing = [];
 
-let hiScoreCount = 0;
+let hiScoreCount = document.cookie;
 let deathCount = 0;
 let snekColor = "black";
 let speed = 100;
 let longness = 2;
 let curX = 50;
 let curY = 50;
+
+if (!document.cookie) {
+    document.cookie = 0;
+}
+function setCookie(score) {
+    document.cookie = score;
+}
+console.log(document.cookie);
 
 spdRead.lastElementChild.textContent = "MEDIUM";
 longth.lastElementChild.textContent = longness - 1;
@@ -142,6 +150,7 @@ function crash() {
     if (longness - 1 > hiScoreCount) {
         hiScoreCount = longness - 1;
         hiScore.lastElementChild.textContent = hiScoreCount;
+        setCookie(hiScoreCount);
     }
     longness = 2;
     longth.lastElementChild.textContent = longness - 1;
