@@ -13,28 +13,24 @@ const gameOver = document.getElementById('floater');
 let intervalID;
 let trailing = [];
 
-let hiScoreCount = document.cookie;
 let deathCount = 0;
 let snekColor = "black";
+let growth = 15;
 let speed = 100;
 let longness = 2;
 let curX = 50;
 let curY = 50;
 
 if (!document.cookie) {
-    document.cookie = 0;
+     document.cookie = 0
 }
-function setCookie(score) {
-    document.cookie = score;
-}
-console.log(document.cookie);
+let hiScoreCount = document.cookie;
 
 spdRead.lastElementChild.textContent = "MEDIUM";
 longth.lastElementChild.textContent = longness - 1;
 hiScore.lastElementChild.textContent = hiScoreCount;
 deaths.lastElementChild.textContent = deathCount;
 
-document.addEventListener("keydown", changeDirection);
 slow.onclick = () => {
     speed = 200;
     spdRead.lastElementChild.textContent = "SLOW";
@@ -48,6 +44,7 @@ fast.onclick = () => {
     spdRead.lastElementChild.textContent = "FAST";
 }
 
+document.addEventListener("keydown", changeDirection);
 function changeDirection(dir) {
     gameOver.style.visibility = "hidden";
     if (dir.keyCode === 38 || dir.code === "KeyW"){ //upArrow
@@ -77,7 +74,7 @@ for (let y = 1; y <= 100; y++) {
         window["snek" + y + "x" + x].style['grid-column'] = y;
     }
 }
-//edges
+//border
 for (let i = 1; i <= 100; i++) {
     window["snek1x" + i].style['background-color'] = "black";
     window["snek100x" + i].style['background-color'] = "black";
@@ -97,7 +94,7 @@ function moveSnek(dir) {
     if (food === window["snek" + curY + "x" + curX]) {
         food.style['background-color'] = "white";
         food.style['border-radius'] = "0px";
-        longness += 5;
+        longness += growth;
         food = snekFood();
         longth.lastElementChild.textContent = longness - 1;
     }
@@ -141,8 +138,8 @@ function crash() {
     deaths.lastElementChild.textContent = deathCount;
     clearInterval(intervalID);
     gameOver.style.visibility = "visible";
-    curX = 30;
-    curY = 30;
+    curX = 50;
+    curY = 50;
     for (let i = 1; i < longness; i++) {
         trailing[0].style['background-color'] = "white";
         trailing.shift();
@@ -150,7 +147,7 @@ function crash() {
     if (longness - 1 > hiScoreCount) {
         hiScoreCount = longness - 1;
         hiScore.lastElementChild.textContent = hiScoreCount;
-        setCookie(hiScoreCount);
+        document.cookie = hiScoreCount;
     }
     longness = 2;
     longth.lastElementChild.textContent = longness - 1;

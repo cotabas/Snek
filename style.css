@@ -101,6 +101,8 @@ button {
     height: 30px;
     width: 90px;
     margin: 1px;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
 }
 #floater {
     position: absolute;
