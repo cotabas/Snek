@@ -1,0 +1,11 @@
+
+#container {
+    display: grid;
+    width: 80%;
+    height: 80%;
+    max-width: 80vw;
+    max-height: 80vh;
+    grid-template-columns: repeat(100, 1fr);
+    grid-template-rows: repeat(100, 1fr);
+    aspect-ratio: 1;
+}
