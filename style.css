@@ -1,11 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+body {
+    display: flex;
+    font-family: 'VT323', monospace;
+    margin: 0px auto;
+    max-width: 80vh;
+    max-height: 80vh;
+}
 #container {
     display: grid;
     width: 80%;
     height: 80%;
-    max-width: 80vw;
-    max-height: 80vh;
     grid-template-columns: repeat(100, 1fr);
     grid-template-rows: repeat(100, 1fr);
     aspect-ratio: 1;
+    justify-self: center;
+}
+#board {
+    background-color: rgb(222, 235, 226);
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    width: 20%;
+    height: 80%;
+    aspect-ratio: 1 / 4;
+    grid-template-areas: 
+        "header header header"
+        "info info ."
+        "wasd wasd wasd"
+        "score score score"
+        "length length length"
+        "death death death"
+        "speed speed speed"
+        "speedbut speedbut speedbut";
+}
+#disc {
+    margin-top: 3px;
+    margin-bottom: 60px;
+}
+h1 {
+    margin-bottom: 0px;
+    font-size: 42px;
+    text-align: center;
+    grid-area: header;
+}
+#wasd {
+    grid-area: wasd;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-size: 32px;
+    font-weight: 1000;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 40px;
+}
+#w {
+    text-align: center;
+    min-width: 100%;
+}
+#score {
+    grid-area: score;
+    display: flex;
+}
+#length {
+    grid-area: length;
+    display: flex;
+}
+#length h3 {
+    margin-right: 8px;
+}
+#deaths {
+    grid-area: death;
+    display: flex;
+}
+#deaths h3 {
+    margin-right: 8px;
+}
+.num {
+    font-size: 32px;
+    margin-left: 20px;
+}
+#speed {
+    grid-area: speed;
+    display: flex;
+}
+#speed h3 {
+    margin-right: 16px;
+}
+#speedbut {
+    grid-area: speedbut;
+}
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background-color: rgb(60, 90, 73);
+    color: white;
+    height: 30px;
+    width: 90px;
+    margin: 1px;
+}
+#floater {
+    position: absolute;
+    top: 30vh;
+    left: 40vw;
+    font-size: 72px;
+    visibility: hidden;
 }

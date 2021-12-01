@@ -1,18 +1,47 @@
+//bug if food pops up on the snek it turns white after the snek moves off it
 
 const container = document.getElementById('container');
+const deaths = document.getElementById('deaths');
+const hiScore = document.getElementById('score');
+const longth = document.getElementById('length');
+const spdRead = document.getElementById('speed');
+const slow = document.getElementById('slow');
+const med = document.getElementById('medium');
+const fast = document.getElementById('fast');
+const gameOver = document.getElementById('floater');
 
 let intervalID;
 let trailing = [];
 
+let hiScoreCount = 0;
+let deathCount = 0;
 let snekColor = "black";
-let speed = 50;
-let longness = 3;
+let speed = 100;
+let longness = 2;
 let curX = 50;
 let curY = 50;
 
+spdRead.lastElementChild.textContent = "MEDIUM";
+longth.lastElementChild.textContent = longness - 1;
+hiScore.lastElementChild.textContent = hiScoreCount;
+deaths.lastElementChild.textContent = deathCount;
+
 document.addEventListener("keydown", changeDirection);
+slow.onclick = () => {
+    speed = 200;
+    spdRead.lastElementChild.textContent = "SLOW";
+}
+med.onclick = () => {
+    speed = 100;
+    spdRead.lastElementChild.textContent = "MEDIUM";
+}
+fast.onclick = () => {
+    speed = 50;
+    spdRead.lastElementChild.textContent = "FAST";
+}
 
 function changeDirection(dir) {
+    gameOver.style.visibility = "hidden";
     if (dir.keyCode === 38 || dir.code === "KeyW"){ //upArrow
         clearInterval(intervalID);
         intervalID = setInterval(moveSnek, speed, "up"); 
@@ -26,7 +55,6 @@ function changeDirection(dir) {
         clearInterval(intervalID);
         intervalID = setInterval(moveSnek, speed, "right");
     } else if (dir.keyCode === 32) { //space
-        snekFood();
         clearInterval(intervalID);
     }
 }
@@ -60,8 +88,10 @@ function moveSnek(dir) {
     }
     if (food === window["snek" + curY + "x" + curX]) {
         food.style['background-color'] = "white";
-        longness++;
+        food.style['border-radius'] = "0px";
+        longness += 5;
         food = snekFood();
+        longth.lastElementChild.textContent = longness - 1;
     }
     if (dir === "up") {
         window["snek" + curY + "x" + curX].style['background-color'] = snekColor;
@@ -86,6 +116,7 @@ function snekFood() {
     let x = (Math.floor(Math.random() * 97) + 2);
     let y = (Math.floor(Math.random() * 97) + 2);
     window["snek" + y + "x" + x].style['background-color'] = "green";
+    window["snek" + y + "x" + x].style['border-radius'] = "20px";
     return window["snek" + y + "x" + x];
 }
 
@@ -98,13 +129,20 @@ function trail(div) {
 }
 
 function crash() {
+    deathCount++;
+    deaths.lastElementChild.textContent = deathCount;
     clearInterval(intervalID);
-    alert("Crash!");
+    gameOver.style.visibility = "visible";
     curX = 30;
     curY = 30;
     for (let i = 1; i < longness; i++) {
         trailing[0].style['background-color'] = "white";
         trailing.shift();
     }
-    longness = 3;
+    if (longness - 1 > hiScoreCount) {
+        hiScoreCount = longness - 1;
+        hiScore.lastElementChild.textContent = hiScoreCount;
+    }
+    longness = 2;
+    longth.lastElementChild.textContent = longness - 1;
 }
