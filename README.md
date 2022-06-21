@@ -1,5 +1,6 @@
-# Snek
-Snek game
+# Snek game
+
+**Play it:** <a href="https://cotabas.github.io/Snek/">here</a>
 
 **Made with:**
 Javascript, CSS, and HTML
